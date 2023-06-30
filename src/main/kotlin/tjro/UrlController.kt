@@ -13,7 +13,7 @@ class UrlController(private val urlService: UrlService) {
     @PostMapping("/")
     fun shorten(@RequestBody request: UrlRequest): UrlResponse {
         val hash = urlService.encurtar(request.url)
-        return UrlResponse(hash, url = "http://172.22.12.132:8080/$hash")
+        return UrlResponse(hash, "http://172.12.22.132:8080/$hash")
     }
 
     @GetMapping("/{hash}")
