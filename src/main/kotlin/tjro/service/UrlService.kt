@@ -12,20 +12,27 @@ import java.security.MessageDigest
 
 
 @Service
-class UrlService(private val redis: RedisTemplate<String, String>,
-                 private val urlRepository: UrlRepository
-    ) {
+class UrlService(private val urlRepository: UrlRepository) {
 
     private val digest = MessageDigest.getInstance("SHA-256")
 
 
     fun encurtar(link: String): String {
+
+        if (!validarTextoComURL(link)) throw LinkInvalido(link)
+
         val hash = hash(link)
         val urlResolvido = Url(0, link, hash)
+
         salvarUrl(urlResolvido)
 
 
         return urlResolvido.hash
+    }
+
+    fun validarTextoComURL(link: String): Boolean {
+        val regex = Regex(".*(http(s)?://).*")
+        return regex.matches(link)
     }
 
     private fun hash(url: String, length: Int = 6): String {
@@ -40,16 +47,22 @@ class UrlService(private val redis: RedisTemplate<String, String>,
     }
 
     fun salvarUrl(url: Url) {
-        val urlDB = urlRepository.findByHash(url.hash)
-        if (urlDB == null){
-            urlRepository.save(url)
+        if (!validarTextoComURL(url.link)) {
+            throw LinkInvalido(url.link)
         }
-        return
+
+        val urlDB = urlRepository.findByHash(url.hash)
+        if (urlDB == null) {
+            urlRepository.save(url)
+        } else {
+            throw IllegalArgumentException("URL já existe.")
+        }
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     class HashDesconhecido(hash: String) : RuntimeException("$hash não encontrado")
 
-
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    class LinkInvalido(link: String) : RuntimeException("$link inválido")
 
 }
