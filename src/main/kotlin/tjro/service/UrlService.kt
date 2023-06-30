@@ -36,7 +36,7 @@ class UrlService(private val redis: RedisTemplate<String, String>,
     }
 
     fun resolveHash(hash: String): String {
-        return redis.opsForValue().get(hash) ?: throw HashDesconhecido(hash)
+        return urlRepository.findByHash(hash)?.link ?: throw HashDesconhecido(hash)
     }
 
     fun salvarUrl(url: Url) {
