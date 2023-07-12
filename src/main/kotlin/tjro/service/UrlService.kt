@@ -54,8 +54,6 @@ class UrlService(private val urlRepository: UrlRepository) {
         val urlDB = urlRepository.findByHash(url.hash)
         if (urlDB == null) {
             urlRepository.save(url)
-        } else {
-            throw IllegalArgumentException("URL já existe.")
         }
     }
 
