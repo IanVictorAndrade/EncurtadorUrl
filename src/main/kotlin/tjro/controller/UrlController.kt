@@ -1,13 +1,16 @@
-package tjro
+package tjro.controller
 
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import tjro.UrlRequest
+import tjro.UrlResponse
 import tjro.service.UrlService
 import java.net.URI
 
 @RestController
+@CrossOrigin(origins = ["http://172.22.11.99:4200"])
 class UrlController(private val urlService: UrlService) {
 
     @PostMapping("/")

@@ -10,6 +10,8 @@ import java.util.*
 @Repository
 interface UrlRepository: CrudRepository<Url, Long> {
 
-    @Query(value = "Select * from url where hash = :valor", nativeQuery = true)
+
     fun findByHash(valor: String): Url?
+
+
 }

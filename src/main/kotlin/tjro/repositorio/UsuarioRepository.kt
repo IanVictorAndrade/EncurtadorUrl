@@ -1,6 +1,7 @@
 package tjro.repositorio
 
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Repository
@@ -11,4 +12,7 @@ import tjro.entidade.Usuario
 interface UsuarioRepository: JpaRepository<Usuario, Long> {
 
     fun findByEmail(username: String?): Usuario
+
+    @Query("Select email from Usuario where email = :email")
+    fun encontreEmail(email: String?): Usuario?
 }

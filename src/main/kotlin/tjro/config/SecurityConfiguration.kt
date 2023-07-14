@@ -28,7 +28,7 @@ class SecurityConfiguration(private val userDetailsService: UserDetailsService) 
             csrf { disable() }
             authorizeRequests {
                 authorize("/h2-console/**", permitAll)
-                authorize(anyRequest, authenticated)
+                authorize(anyRequest, permitAll)
             }
             sessionManagement {
                 sessionCreationPolicy = SessionCreationPolicy.STATELESS
@@ -38,16 +38,16 @@ class SecurityConfiguration(private val userDetailsService: UserDetailsService) 
         }
         return http.build()
     }
-
-    @Bean
-    fun encoder(): PasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
-
-    @Bean
-    @Throws(Exception::class)
-    fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager? {
-        return authenticationConfiguration.authenticationManager
-    }
+//
+//    @Bean
+//    fun encoder(): PasswordEncoder {
+//        return BCryptPasswordEncoder()
+//    }
+//
+//    @Bean
+//    @Throws(Exception::class)
+//    fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager? {
+//        return authenticationConfiguration.authenticationManager
+//    }
 
 }
