@@ -6,11 +6,13 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 
 @Entity
-class Usuario (
+data class Usuario (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,
     var email: String,
-    var senha: String
+    var senha: String,
+    var token: String
+
 
 )

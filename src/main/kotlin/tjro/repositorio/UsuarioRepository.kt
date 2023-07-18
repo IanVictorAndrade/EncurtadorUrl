@@ -15,4 +15,6 @@ interface UsuarioRepository: JpaRepository<Usuario, Long> {
 
     @Query("Select email from Usuario where email = :email")
     fun encontreEmail(email: String?): Usuario?
+
+    fun findByToken(token: String?): Usuario
 }

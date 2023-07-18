@@ -3,10 +3,12 @@ package tjro.controller
 import jakarta.validation.Valid
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
+import tjro.requests.AlterarSenhaRequest
 import tjro.dto.AtualizaUsuario
 import tjro.dto.DadosUsuarios
 import tjro.dto.UsuarioView
 import tjro.entidade.Usuario
+import tjro.requests.GerarTokenRequest
 import tjro.service.UsuarioService
 import java.util.*
 
@@ -41,6 +43,17 @@ class UsuarioController(private val usuarioService: UsuarioService) {
     @Transactional
     fun deletaUsuario(@PathVariable id: Long) {
         return usuarioService.deletar(id)
+    }
+
+    @PostMapping("/codigo-senha")
+    @Transactional
+    fun gerarToken(@RequestBody email: GerarTokenRequest): String {
+        return usuarioService.gerarTokenRecuperacao(email.email)
+    }
+    @PutMapping("/alterar-senha")
+    @Transactional
+    fun alterarSenha(@RequestBody request: AlterarSenhaRequest): String {
+        return usuarioService.redefinirSenha(request.token, request.novaSenha)
     }
 
 }

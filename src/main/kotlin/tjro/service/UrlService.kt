@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.ResponseStatus
 import tjro.entidade.Url
+import tjro.entidade.Usuario
 import tjro.repositorio.UrlRepository
 import java.lang.RuntimeException
 import java.math.BigInteger

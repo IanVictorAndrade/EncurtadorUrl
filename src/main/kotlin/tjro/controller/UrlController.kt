@@ -4,8 +4,8 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import tjro.UrlRequest
-import tjro.UrlResponse
+import tjro.requests.UrlRequest
+import tjro.response.UrlResponse
 import tjro.service.UrlService
 import java.net.URI
 
