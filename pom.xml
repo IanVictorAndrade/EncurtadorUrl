@@ -18,13 +18,6 @@
 		<kotlin.version>1.8.22</kotlin.version>
 	</properties>
 	<dependencies>
-<!--		<dependency>-->
-<!--			<groupId>javax.servlet</groupId>-->
-<!--			<artifactId>javax.servlet-api</artifactId>-->
-<!--			<version>4.0.1</version> &lt;!&ndash; Use a versão mais recente do Servlet API &ndash;&gt;-->
-<!--			<scope>provided</scope>-->
-<!--		</dependency>-->
-		<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>

@@ -13,10 +13,10 @@ import java.net.URI
 @CrossOrigin(origins = ["http://172.22.11.99:4200"])
 class UrlController(private val urlService: UrlService) {
 
-    @PostMapping("/")
-    fun shorten(@RequestBody request: UrlRequest): UrlResponse {
+    @PostMapping("/encurta")
+    fun encurta(@RequestBody request: UrlRequest): UrlResponse {
         val hash = urlService.encurtar(request.url)
-        return UrlResponse(hash, "http://172.22.12.132:8080/$hash")
+        return UrlResponse(hash,"http://172.22.12.132:8080/$hash")
     }
 
     @GetMapping("/{hash}")

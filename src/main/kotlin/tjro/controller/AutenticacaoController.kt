@@ -35,6 +35,7 @@ class AutenticacaoController(
         val tokenJWT = tokenService.gerarToken(authentication.principal as Usuario).toString()
         val dadosTokenJWT = DadosTokenJWT(tokenJWT)
         val cookie = Cookie("token", tokenJWT)
+        cookie.domain = "172.22.12.132"
         cookie.path = "/" // Defina o path do cookie conforme necessário
         cookie.isHttpOnly = true // Isso garante que o cookie não seja acessível por JavaScript
         cookie.maxAge = 2 * 60 * 60 // Defina o tempo de expiração do cookie (em segundos) - por exemplo, 24 horas

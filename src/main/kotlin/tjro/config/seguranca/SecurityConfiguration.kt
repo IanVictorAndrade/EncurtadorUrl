@@ -36,6 +36,7 @@ class SecurityConfiguration(
                 authorize("/usuarios/cadastro", permitAll)
                 authorize("/usuarios/codigo-senha", permitAll)
                 authorize("/usuarios/alterar-senha", permitAll)
+                authorize("/{hash}", permitAll)
                 authorize(anyRequest, authenticated)
             }
             http.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
