@@ -15,15 +15,27 @@ import java.util.UUID
 import jakarta.mail.*
 import jakarta.mail.internet.InternetAddress
 import jakarta.mail.internet.MimeMessage
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.io.FileSystemResource
+import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
+import com.fasterxml.jackson.databind.ObjectMapper
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 
 @Service
 class UsuarioService(
     private val usuarioRepository: UsuarioRepository,
     private val usuarioMapper: UsuarioMapper,
-    private val mailSender: JavaMailSender
-) {
+    private val passwordEncoder: BCryptPasswordEncoder
+) : EmailService {
+
+    @Autowired
+    private val javaMailSender: JavaMailSender? = null
+
+    @Value("\${spring.mail.username}")
+    private val sender: String? = null
 
 
     fun listar(): List<UsuarioView> {
@@ -37,7 +49,8 @@ class UsuarioService(
     fun edita(edit: AtualizaUsuario) {
         val usuario = usuarioRepository.findById(edit.id).orElseThrow { NotFoundException() }
         usuario.email = edit.email
-        usuario.senha = edit.senha
+        val senhaCriptografada = passwordEncoder.encode(edit.senha)
+        usuario.senha = senhaCriptografada
     }
 
     fun deletar(id: Long) {
@@ -57,7 +70,8 @@ class UsuarioService(
 
         usuario.id = dados.id
         usuario.email = dados.email
-        usuario.senha = dados.senha
+        val senhaCriptografada = passwordEncoder.encode(dados.senha)
+        usuario.senha = senhaCriptografada
 
 
         val existeUsuario = usuarioRepository.encontreEmail(dados.email)
@@ -66,48 +80,53 @@ class UsuarioService(
         }
     }
 
-    fun gerarTokenRecuperacao(email: String): String {
-        var usuario: Usuario? = usuarioRepository.findByEmail(email)
-
-        var token = UUID.randomUUID().toString()
-
-        if (usuario != null) {
-            usuario.token = token
-            usuarioRepository.save(usuario)
-
-            // Enviar e-mail com o token de recuperação
-            enviarEmailRecuperacao(email, token)
-        } else {
-            throw RuntimeException("Usuário não existe")
-        }
-
-        return token
-    }
-
     fun redefinirSenha(token: String, novaSenha: String): String {
         val usuario: Usuario = usuarioRepository.findByToken(token)
         // Verificar se o token é válido e está associado ao email fornecido
         if (usuario.token != token) {
             throw RuntimeException("Token inválido!")
         }
-
-        usuario.senha = novaSenha
+        val senhaCriptografada = passwordEncoder.encode(novaSenha)
+        usuario.senha = senhaCriptografada
         usuarioRepository.save(usuario)
-
-        return "Senha Alterada com Sucesso!"
+        val objectMapper = ObjectMapper()
+        val jsonResponse = objectMapper.writeValueAsString("Senha Alterada com Sucesso!")
+        return jsonResponse
     }
 
-    private fun enviarEmailRecuperacao(email: String, token: String) {
+    fun enviandoEmailDeRecuperacao(email: String): String {
+        val emailConvertido = ObjectMapper().readTree(email)["email"].asText()
 
-        val message:MimeMessage = mailSender.createMimeMessage()
-        message.setFrom(InternetAddress("contaApiRestTest@gmail.com")) // remetente
-        message.setRecipient(Message.RecipientType.TO, InternetAddress(email))
-        message.subject = "Recuperação de Senha"
-        message.setText("Seu token de recuperação é: $token")
+        val usuario = usuarioRepository.findByEmail(emailConvertido)
 
-        Transport.send(message)
+        if (usuario != null) {
+            val token = UUID.randomUUID().toString()
+            usuario.token = token
+            usuarioRepository.save(usuario)
+
+
+            return try {
+                val mailMessage = SimpleMailMessage()
+
+                mailMessage.from = sender
+                mailMessage.setTo(emailConvertido)
+                mailMessage.subject = "Recuperação de Senha"
+                mailMessage.text = "Seu token de recuperação é: $token"
+
+                javaMailSender!!.send(mailMessage)
+                val objectMapper = ObjectMapper()
+                val jsonResponse = objectMapper.writeValueAsString("E-mail enviado com Sucesso!")
+                jsonResponse
+
+            } catch (e: Exception) {
+                "Erro ao enviar o e-mail"
+            }
+        } else {
+            throw RuntimeException("Usuário não existe")
+        }
+
+
     }
-
 
 
 }

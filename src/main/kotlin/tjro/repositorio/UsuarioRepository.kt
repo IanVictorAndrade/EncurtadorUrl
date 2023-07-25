@@ -11,10 +11,11 @@ import tjro.entidade.Usuario
 @Repository
 interface UsuarioRepository: JpaRepository<Usuario, Long> {
 
-    fun findByEmail(username: String?): Usuario
+
+    fun findByEmail(email: String?): Usuario?
 
     @Query("Select email from Usuario where email = :email")
-    fun encontreEmail(email: String?): Usuario?
+    fun encontreEmail(email: String): Usuario?
 
     fun findByToken(token: String?): Usuario
 }
