@@ -16,7 +16,7 @@ class UrlController(private val urlService: UrlService) {
     @PostMapping("/encurta")
     fun encurta(@RequestBody request: UrlRequest): UrlResponse {
         val hash = urlService.encurtar(request.url)
-        return UrlResponse(hash,"http://172.22.12.132:8080/$hash")
+        return UrlResponse(hash,"http://localhost:8080/$hash")
     }
 
     @GetMapping("/{hash}")
