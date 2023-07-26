@@ -3,6 +3,7 @@ package tjro.controller
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonSerializable
 import com.fasterxml.jackson.databind.ObjectMapper
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -37,18 +38,21 @@ class UsuarioController(
     }
 
     @GetMapping("/listar")
+    @SecurityRequirement(name = "bearer-key")
     fun listarUsuarios(): ResponseEntity<List<UsuarioView>> {
         val lista = usuarioService.listar()
         return ResponseEntity.ok(lista)
     }
 
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "bearer-key")
     fun buscarPorId(@PathVariable id: Long): Optional<Usuario> {
         return usuarioService.buscarPorId(id)
     }
 
     @PutMapping
     @Transactional
+    @SecurityRequirement(name = "bearer-key")
     fun editarUsuario(@RequestBody @Valid edit: AtualizaUsuario): ResponseEntity<String> {
         usuarioService.edita(edit)
         return ResponseEntity.ok("Usuário Editado com sucesso!")
@@ -56,6 +60,7 @@ class UsuarioController(
 
     @DeleteMapping("/{id}")
     @Transactional
+    @SecurityRequirement(name = "bearer-key")
     fun deletaUsuario(@PathVariable id: Long): ResponseEntity<HttpStatus> {
         usuarioService.deletar(id)
         return ResponseEntity.noContent().build()

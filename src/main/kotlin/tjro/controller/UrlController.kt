@@ -1,5 +1,6 @@
 package tjro.controller
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -11,6 +12,7 @@ import java.net.URI
 
 @RestController
 @CrossOrigin(origins = ["http://172.22.11.99:4200"])
+@SecurityRequirement(name = "bearer-key")
 class UrlController(private val urlService: UrlService) {
 
     @PostMapping("/encurta")
