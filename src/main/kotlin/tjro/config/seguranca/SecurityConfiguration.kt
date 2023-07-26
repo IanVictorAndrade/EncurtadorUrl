@@ -37,6 +37,9 @@ class SecurityConfiguration(
                 authorize("/usuarios/codigo-senha", permitAll)
                 authorize("/usuarios/alterar-senha", permitAll)
                 authorize("/{hash}", permitAll)
+                authorize("/v3/api/docs/**", permitAll)
+                authorize("/swagger-ui.html", permitAll)
+                authorize("/swagger-ui/**", permitAll)
                 authorize(anyRequest, authenticated)
             }
             http.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
