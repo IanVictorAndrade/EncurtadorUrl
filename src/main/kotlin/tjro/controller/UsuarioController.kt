@@ -1,8 +1,5 @@
 package tjro.controller
 
-import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.JsonSerializable
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -15,9 +12,7 @@ import tjro.dto.AtualizaUsuario
 import tjro.dto.DadosUsuarios
 import tjro.dto.UsuarioView
 import tjro.entidade.Usuario
-import tjro.requests.GerarTokenRequest
 import tjro.response.GenericResponse
-import tjro.service.EmailService
 import tjro.service.UsuarioService
 import java.util.*
 
@@ -32,7 +27,7 @@ class UsuarioController(
     @Transactional
     fun cadastrarUsuario(@RequestBody dados: DadosUsuarios, uriComponentsBuilder: UriComponentsBuilder): ResponseEntity<GenericResponse> {
         usuarioService.cadastrar(dados)
-        var uri = uriComponentsBuilder.path("/usuarios/{id}").buildAndExpand(dados.id).toUri()
+        val uri = uriComponentsBuilder.path("/usuarios/{id}").buildAndExpand(dados.id).toUri()
         val resposta = GenericResponse("Usuário cadastrado com sucesso!")
         return ResponseEntity.created(uri).body(resposta)
     }
