@@ -27,7 +27,7 @@ Biblioteca Auth0
 ##
  Instruções:
  
- Este projeto é uma API rest, você precisará de um postman, insomnia ou qualquer tipo de programa que faça requisições para utilizá-lo.
+ 1 - Este projeto é uma API rest, você precisará de um postman, insomnia ou qualquer tipo de programa que faça requisições para utilizá-lo.
 
  <div>
   <img align="center" alt="Ian-Postman" src="https://media.discordapp.net/attachments/913139991687864320/1133759075415506944/Captura_de_tela_de_2023-07-26_09-53-03.png?width=290&height=368">
@@ -35,7 +35,18 @@ Biblioteca Auth0
 
 
 
- Apenas precisa conectar a um banco PostgreSQL, a aplicação cria as tabelas por conta própria.
+ 2 - Apenas precisa conectar a um banco PostgreSQL, a aplicação cria as tabelas por conta própria.
+
+
+
+ 3 - instale o maven e use o comando no terminal
+
+ ```
+ mvn compile
+ ```
+
+4 - Precisa do JDK 17. Recomendação de IDE é o IntelliJ
+ 
 
  
 
