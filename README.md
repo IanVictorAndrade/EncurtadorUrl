@@ -21,7 +21,7 @@ Framework springboot 3.1.0
 Biblioteca Auth0
 
 <div>
-  <img align="center" alt="Ian-Auth0" height="30" width="40" src="https://yt3.googleusercontent.com/esg0N7Y0g9jAq7AOTTQChlXKaszsPm3LhIzRqCmkF8Af8jI6keF3HtX6CcjTxrJvTeou8orkIQ=s900-c-k-c0x00ffffff-no-rj">
+  <img align="center" alt="Icon-Auth0" height="30" width="40" src="https://yt3.googleusercontent.com/esg0N7Y0g9jAq7AOTTQChlXKaszsPm3LhIzRqCmkF8Af8jI6keF3HtX6CcjTxrJvTeou8orkIQ=s900-c-k-c0x00ffffff-no-rj">
 </div>
 
 ##
