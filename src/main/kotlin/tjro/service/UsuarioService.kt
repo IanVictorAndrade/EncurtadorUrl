@@ -29,7 +29,7 @@ class UsuarioService(
     private val usuarioRepository: UsuarioRepository,
     private val usuarioMapper: UsuarioMapper,
     private val passwordEncoder: BCryptPasswordEncoder
-) : EmailService {
+) {
 
     @Autowired
     private val javaMailSender: JavaMailSender? = null
