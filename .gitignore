@@ -34,3 +34,6 @@ build/
 
 ### Docker ###
 docker/*.env
+
+### Arquivo Extra ###
+FETCH_HEAD
