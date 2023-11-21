@@ -1,11 +1,24 @@
 version: "3.9"
 services:
+  banco:
+    image: postgres
+    container_name: banco_de_dados
+    environment:
+      POSTGRES_PASSWORD: Meyh@123
+      POSTGRES_DB: encurtador
+      POSTGRES_USER: ian
+    ports:
+      - "5432:5432"
+
   back:
     image: ianvictor/encurtador_url:v1.0
     environment:
       - JWT_SECRET=12345678
     env_file:
       - encurtador-back.env
+    depends_on:
+      - banco
+
 networks:
   default:
     driver: bridge
