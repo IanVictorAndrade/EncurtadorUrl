@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  back:
+    image: ianvictor/encurtador_url:v1.0
+    environment:
+      - JWT_SECRET=12345678
+    env_file:
+      - encurtador-back.env
+networks:
+  default:
+    driver: bridge
