@@ -16,6 +16,8 @@ services:
       - JWT_SECRET=12345678
     env_file:
       - encurtador-back.env
+    ports:
+        - "8080:8080"
     depends_on:
       - banco
 
