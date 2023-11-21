@@ -47,7 +47,7 @@ Biblioteca Auth0
 
 4 - Precisa do JDK 17. Recomendação de IDE é o IntelliJ
 
-5 - entre na pasta chamada docker preencha os dados do sample(arquivo .env.txt) e use o comando:
+5 - entre na pasta chamada docker preencha os dados do sample(arquivo .env.txt), retire o .txt e use o comando:
 
 ```
 docker-compose up
