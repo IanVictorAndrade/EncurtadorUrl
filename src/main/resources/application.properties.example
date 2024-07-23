@@ -1,0 +1,27 @@
+spring.datasource.url=urlBanco
+spring.datasource.username=usernameBanco
+spring.datasource.password=senhaBanco
+spring.datasource.driver-class-name=driverBanco
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.show_sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+api.security.token.secret=SECRET
+
+#Email via Gmail
+
+spring.mail.host=valorHostGmail
+#porta SMTP com suporte a TLS
+spring.mail.port=port
+spring.mail.test-connection=false
+#Login
+spring.mail.username=gmail_servidor
+spring.mail.password=senha_gmail_servidor
+#ConfigsAdicionais
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+
+support.mail=gmail_suporte|pode ser igual
+
+
