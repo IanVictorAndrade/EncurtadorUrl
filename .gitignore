@@ -35,5 +35,8 @@ build/
 ### Docker ###
 docker/*.env
 
+### Secret Files ###
+src/main/resources/application.properties
+
 ### Arquivo Extra ###
 FETCH_HEAD
